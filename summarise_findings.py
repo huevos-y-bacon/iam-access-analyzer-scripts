@@ -10,6 +10,7 @@ TRIMMED = True # Set to True to exclude metadata (get_all_findings.py)
 MAX_LEN = 20 # Max title length
 DEBUG = False
 
+
 def main(filename):
     fn = "Filename"
     print(f"{fn.ljust(MAX_LEN)}   : {filename}")
@@ -72,8 +73,10 @@ def main(filename):
     for r_type in r_types:
         print(f"  {r_type['resource_type'].ljust(MAX_LEN)} : {r_type['len_resource_type']}")
 
+
 def d_print(message):
     print(f"DEBUG: {message}") if DEBUG else None
+
 
 def by_public(data):
     findings_details = []
@@ -88,6 +91,7 @@ def by_public(data):
     pf = "Public findings"
     print(f"{pf.ljust(MAX_LEN)}   : {len_public}")
 
+
 def by_external(data):
     findings_details = []
     for finding in data:
@@ -101,6 +105,7 @@ def by_external(data):
     pf = "External Access"
     print(f"{pf.ljust(MAX_LEN)}   : {len_external}")
 
+
 def by_status(data, status):
     findings_details = []
     for finding in data:
@@ -109,6 +114,7 @@ def by_status(data, status):
             findings_details.append(finding)
     len_status = len(findings_details)
     return status, len_status
+
 
 def by_owner(data):
     findings_details = []
@@ -123,6 +129,7 @@ def by_owner(data):
 
     uo = "Unique owners"
     print(f"{uo.ljust(MAX_LEN)}   : {len_owner_list}")
+
 
 def by_principal(data):
     findings_details = []
@@ -153,6 +160,7 @@ def by_principal(data):
     print(f"{up.ljust(MAX_LEN)}   : {len_principal_list}")
     len_principal = len(findings_details)
 
+
 def by_resource_type(data, resource_type):
     findings_details = []
     resource_type_list = []
@@ -169,10 +177,12 @@ def by_resource_type(data, resource_type):
     
     return len_resource_type_list, resource_type, len_resource_type
 
+
 def usage(message):
     print(message)
     print("Usage: python analyse_access.py -f <filename>; or set the FINDINGS_FILE env var")
     exit(1)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process some variables.')

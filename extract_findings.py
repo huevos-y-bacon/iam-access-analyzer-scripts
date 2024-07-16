@@ -13,6 +13,7 @@ MAX_LEN = 20 # Max title length
 INCL_RESOLVED = os.getenv("INCL_RESOLVED", False)
 INCL_ARCHIVED = os.getenv("INCL_ARCHIVED", False)
 
+
 def main(filename):
     incl_resolved = INCL_RESOLVED
     incl_archived = INCL_ARCHIVED
@@ -60,6 +61,7 @@ def main(filename):
         results_file_path_prefix = f"{filename_pre}-{status.upper()}"
         process_response(response_by_status,results_file_path_prefix)
 
+
 def by_public(data, incl_resolved, incl_archived):
     findings_details = []
     for finding in data:
@@ -85,6 +87,7 @@ def by_public(data, incl_resolved, incl_archived):
     pf = "\nPublic findings"
     print(f"{pf.ljust(MAX_LEN)}  : {len_public}")
     return findings_details
+
 
 def by_external(data, incl_resolved, incl_archived):
     findings_details = []
@@ -112,6 +115,7 @@ def by_external(data, incl_resolved, incl_archived):
     print(f"{pf.ljust(MAX_LEN)}  : {len_external}")
     return findings_details
 
+
 def by_status(data, status):
     findings_details = []
     for finding in data:
@@ -122,6 +126,7 @@ def by_status(data, status):
     sf = f"\n{status} findings"
     print(f"{sf.ljust(MAX_LEN)}  : {len_status}")
     return findings_details
+
 
 def by_owner(data):
     findings_details = []
@@ -136,6 +141,7 @@ def by_owner(data):
 
     uo = "Unique owners"
     print(f"{uo.ljust(MAX_LEN)} : {len_owner_list}")
+
 
 def by_principal(data):
     findings_details = []
@@ -166,6 +172,7 @@ def by_principal(data):
     print(f"{up.ljust(MAX_LEN)} : {len_principal_list}")
     len_principal = len(findings_details)
 
+
 def by_resource_type(data, resource_type):
     findings_details = []
     resource_type_list = []
@@ -182,10 +189,12 @@ def by_resource_type(data, resource_type):
     
     return len_resource_type_list, resource_type, len_resource_type
 
+
 def usage(message):
     print(message)
     print("Usage: python analyse_access.py -f <filename>; or set the FINDINGS_FILE env var")
     exit(1)
+
 
 def write_results_json(findings_details, results_file_path_prefix):
     '''Output to JSON'''
@@ -221,6 +230,7 @@ def write_results_csv(findings_details, results_file_path_prefix):
     file.close()
     ext = "  csv"
     print(f"{ext.ljust(MAX_LEN)} : {results_file}")
+
 
 def process_response(response,results_file_path_prefix):
     # Flatten the response somewhat
@@ -270,6 +280,7 @@ def process_response(response,results_file_path_prefix):
 
     write_results_json(response, results_file_path_prefix)
     write_results_csv(response, results_file_path_prefix)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process some variables.')
